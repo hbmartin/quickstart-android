@@ -1,12 +1,12 @@
-package com.google.firebase.quickstart.database.viewholder;
+package me.haroldmartin.snuggles.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.quickstart.database.R;
-import com.google.firebase.quickstart.database.models.Post;
+import me.haroldmartin.snuggles.R;
+import me.haroldmartin.snuggles.models.Post;
 
 public class PostViewHolder extends RecyclerView.ViewHolder {
 

@@ -1,4 +1,4 @@
-package com.google.firebase.quickstart.database.fragment;
+package me.haroldmartin.snuggles.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,10 +19,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
-import com.google.firebase.quickstart.database.PostDetailActivity;
-import com.google.firebase.quickstart.database.R;
-import com.google.firebase.quickstart.database.models.Post;
-import com.google.firebase.quickstart.database.viewholder.PostViewHolder;
+import me.haroldmartin.snuggles.PostDetailActivity;
+import me.haroldmartin.snuggles.R;
+import me.haroldmartin.snuggles.models.Post;
+import me.haroldmartin.snuggles.viewholder.PostViewHolder;
 
 public abstract class PostListFragment extends Fragment {
 

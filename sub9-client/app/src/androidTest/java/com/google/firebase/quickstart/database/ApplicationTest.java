@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.firebase.quickstart.database;
+package me.haroldmartin.snuggles;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

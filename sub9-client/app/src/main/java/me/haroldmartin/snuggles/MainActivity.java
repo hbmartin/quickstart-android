@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.firebase.quickstart.database;
+package me.haroldmartin.snuggles;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,9 +27,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.quickstart.database.fragment.MyPostsFragment;
-import com.google.firebase.quickstart.database.fragment.MyTopPostsFragment;
-import com.google.firebase.quickstart.database.fragment.RecentPostsFragment;
+import me.haroldmartin.snuggles.fragment.MyPostsFragment;
+import me.haroldmartin.snuggles.fragment.MyTopPostsFragment;
+import me.haroldmartin.snuggles.fragment.RecentPostsFragment;
 
 public class  MainActivity extends BaseActivity {
 

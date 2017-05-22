@@ -1,4 +1,4 @@
-package com.google.firebase.quickstart.database;
+package me.haroldmartin.snuggles;
 
 
 import android.support.test.InstrumentationRegistry;
