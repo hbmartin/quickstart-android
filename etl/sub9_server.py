@@ -12,6 +12,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from optparse import OptionParser
 from urllib.parse import urlparse, parse_qs
 
+geo_data = {}
 
 class RequestHandler(BaseHTTPRequestHandler):
     protocol_version = 'HTTP/1.1'
@@ -23,7 +24,10 @@ class RequestHandler(BaseHTTPRequestHandler):
         r = urlparse(self.path)
         query = parse_qs(r.query)
         geohash = Geohash.encode(float(query['lat'][0]), float(query['lon'][0]), precision=6)
-        resp_body = bytes(geohash, "utf8")
+        print(geohash)
+        count = 0
+        count = geo_data[geohash[:4]][geohash[:5]][geohash]
+        resp_body = bytes(geohash + " : " + str(count), "utf8")
         self.send_response(200)
         self.send_header('content-length', len(resp_body))
         self.send_header('content-type', 'plain/text')
@@ -35,6 +39,8 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 
 def main():
+    with open('full_map.json', encoding='utf-8') as data_file:
+        geo_data = json.loads(data_file.read())
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--port', type=int, default=8080)
     args = parser.parse_args()
