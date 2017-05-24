@@ -20,50 +20,33 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import me.haroldmartin.snuggles.R;
-import me.haroldmartin.snuggles.models.User;
-import me.haroldmartin.snuggles.models.Comment;
-import me.haroldmartin.snuggles.models.Post;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import me.haroldmartin.snuggles.R;
+import me.haroldmartin.snuggles.models.Comment;
+import me.haroldmartin.snuggles.models.User;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
 
-    public static final String EXTRA_POST_KEY = "post_key";
-
-    private DatabaseReference mPostReference;
     private DatabaseReference mCommentsReference;
-    private ValueEventListener mPostListener;
-    private String mPostKey;
     private CommentAdapter mAdapter;
 
-    private TextView mAuthorView;
-    private TextView mTitleView;
-    private TextView mBodyView;
     private EditText mCommentField;
     private Button mCommentButton;
     private RecyclerView mCommentsRecycler;
+    private String gh = "9q5c24t8";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_detail);
+        setContentView(R.layout.activity_main);
 
-        // Get post key from intent
-        mPostKey = "-Kks1gvm3Qwz3-miUCDf";
-        // Initialize Database
-        mPostReference = FirebaseDatabase.getInstance().getReference()
-                .child("posts").child(mPostKey);
-        mCommentsReference = FirebaseDatabase.getInstance().getReference()
-                .child("post-comments").child(mPostKey);
+        mCommentsReference = getChildFromGeoHash(FirebaseDatabase.getInstance().getReference(), gh);
 
         // Initialize Views
-        mAuthorView = (TextView) findViewById(R.id.post_author);
-        mTitleView = (TextView) findViewById(R.id.post_title);
-        mBodyView = (TextView) findViewById(R.id.post_body);
         mCommentField = (EditText) findViewById(R.id.field_comment_text);
         mCommentButton = (Button) findViewById(R.id.button_post_comment);
         mCommentsRecycler = (RecyclerView) findViewById(R.id.recycler_comments);
@@ -73,41 +56,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
+    DatabaseReference getChildFromGeoHash(DatabaseReference ref, String g) {
+        DatabaseReference child = ref.child(g.substring(0, 1));
+        for (int i=2; i<=g.length(); i++) {
+            Log.e(TAG,g.substring(0, i));
+            child = child.child(g.substring(0, i));
+        }
+        return child;
+    }
+
     @Override
     public void onStart() {
         super.onStart();
 
-        // Add value event listener to the post
-        // [START post_value_event_listener]
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                Post post = dataSnapshot.getValue(Post.class);
-                // [START_EXCLUDE]
-                mAuthorView.setText(post.author);
-                mTitleView.setText(post.title);
-                mBodyView.setText(post.body);
-                // [END_EXCLUDE]
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // [START_EXCLUDE]
-                Toast.makeText(MainActivity.this, "Failed to load post.",
-                        Toast.LENGTH_SHORT).show();
-                // [END_EXCLUDE]
-            }
-        };
-        mPostReference.addValueEventListener(postListener);
-        // [END post_value_event_listener]
-
-        // Keep copy of post listener so we can remove it when app stops
-        mPostListener = postListener;
-
-        // Listen for comments
         mAdapter = new CommentAdapter(this, mCommentsReference);
         mCommentsRecycler.setAdapter(mAdapter);
     }
@@ -115,13 +76,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onStop() {
         super.onStop();
-
-        // Remove post value event listener
-        if (mPostListener != null) {
-            mPostReference.removeEventListener(mPostListener);
-        }
-
-        // Clean up comments listener
         mAdapter.cleanupListener();
     }
 
