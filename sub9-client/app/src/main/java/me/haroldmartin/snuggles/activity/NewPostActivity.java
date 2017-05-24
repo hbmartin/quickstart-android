@@ -1,4 +1,4 @@
-package me.haroldmartin.snuggles;
+package me.haroldmartin.snuggles.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +13,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import me.haroldmartin.snuggles.R;
 import me.haroldmartin.snuggles.models.Post;
 import me.haroldmartin.snuggles.models.User;
 

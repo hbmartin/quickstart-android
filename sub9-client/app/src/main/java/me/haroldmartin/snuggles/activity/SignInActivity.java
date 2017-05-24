@@ -1,4 +1,4 @@
-package me.haroldmartin.snuggles;
+package me.haroldmartin.snuggles.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import me.haroldmartin.snuggles.R;
 import me.haroldmartin.snuggles.models.User;
 
 public class SignInActivity extends BaseActivity implements View.OnClickListener {

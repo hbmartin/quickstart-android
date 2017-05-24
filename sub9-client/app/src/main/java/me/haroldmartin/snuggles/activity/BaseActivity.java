@@ -1,4 +1,4 @@
-package me.haroldmartin.snuggles;
+package me.haroldmartin.snuggles.activity;
 
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;

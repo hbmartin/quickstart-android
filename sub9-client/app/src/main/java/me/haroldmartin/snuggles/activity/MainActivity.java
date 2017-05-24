@@ -1,4 +1,4 @@
-package me.haroldmartin.snuggles;
+package me.haroldmartin.snuggles.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import me.haroldmartin.snuggles.R;
 import me.haroldmartin.snuggles.models.User;
 import me.haroldmartin.snuggles.models.Comment;
 import me.haroldmartin.snuggles.models.Post;
@@ -26,9 +28,9 @@ import me.haroldmartin.snuggles.models.Post;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostDetailActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    private static final String TAG = "PostDetailActivity";
+    private static final String TAG = "MainActivity";
 
     public static final String EXTRA_POST_KEY = "post_key";
 
@@ -51,11 +53,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         setContentView(R.layout.activity_post_detail);
 
         // Get post key from intent
-        mPostKey = getIntent().getStringExtra(EXTRA_POST_KEY);
-        if (mPostKey == null) {
-            throw new IllegalArgumentException("Must pass EXTRA_POST_KEY");
-        }
-
+        mPostKey = "-Kks1gvm3Qwz3-miUCDf";
         // Initialize Database
         mPostReference = FirebaseDatabase.getInstance().getReference()
                 .child("posts").child(mPostKey);
@@ -98,7 +96,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
                 // Getting Post failed, log a message
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
                 // [START_EXCLUDE]
-                Toast.makeText(PostDetailActivity.this, "Failed to load post.",
+                Toast.makeText(MainActivity.this, "Failed to load post.",
                         Toast.LENGTH_SHORT).show();
                 // [END_EXCLUDE]
             }
